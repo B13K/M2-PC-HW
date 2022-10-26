@@ -1,12 +1,14 @@
 // Crear un array vacío llamado 'toDoItems'
 // Tu codigo acá:
+const toDoItems = [];
 
 
 // En la página 'index.html' hay un elemento span cuyo texto es 'Aplicación creada por:'.
 // Usando querySelector seleccionar dicho span por su id ('createdBy') y luego usando innerHTML
 // agregar tu nombre al final del texto actual. Ej: 'Aplicación creada por Franco'
 // Tu código acá:
-
+let spanId = document.querySelector('#createdBy');
+spanId.innerHTML += ' B13K';
 
 
 // Crear una clase denominada 'ToDo' cuyo constructor debe recibir un único parámetro del tipo string
@@ -16,8 +18,10 @@
 // 2) 'complete'    : debe setearse en false
 // Ayuda: usar 'this' en el constructor
 
-function ToDo () {
+function ToDo (description) {
   // Tu código acá:
+  this.description = description;
+  this.complete = false;
 
 }
 
@@ -27,6 +31,9 @@ function ToDo () {
 // Debe setear el atributo 'complete' del ToDo en true
 
 // Tu código acá:
+ToDo.prototype.completeToDo = function(){
+  this.complete = true;
+}
 
 
 
@@ -48,8 +55,45 @@ function ToDo () {
 //    8) Devolver la variable toDoShell
 
 
+//Extra
+/*    Investigá sobre el tipo 'checkbox' del elemento input y realizar lo siguiente en la función 'buildToDo':
+        a) Crer un checkbox en la función 'buildToDo'
+        b) Asignarle como id a dicho checkbox el valor del index y quitar el id del index de toDoText
+        c) Agregarle al checkbox el 'click' event listener de completeToDo y quitárle el event listener a toDoText
+        d) Asignarle la clase 'completeCheckbox' al checkbox
+        e) Dentro del bloque 'if' de la función buildToDo, si es true, setear el atributo 'checked' en true en el checkbox
+        f) Agregar el checkbox sobre el elemento 'toDoShell'
+*/
+
+
+
 function buildToDo(todo, index) {
+  
+  //Extra
+  let checkbox = document.createElement('input');
+  checkbox.type = 'checkbox'
+  checkbox.id = index;
+  checkbox.addEventListener('click', completeToDo);
+  checkbox.className = 'completeCheckbox';
+
   // Tu código acá:
+  let toDoShell = document.createElement('div');
+  toDoShell.className = 'toDoShell';
+  let toDoText = document.createElement('span');
+  toDoText.innerHTML = todo.description;
+  //toDoText.id = index;
+  //toDoText.addEventListener('click', completeToDo) // Agregado por indicacion mas adelante
+  if(todo.complete) {
+    toDoText.className = 'completeText';
+    //Extra
+    checkbox.checked = true
+
+  }
+  toDoShell.appendChild(toDoText)
+  toDoShell.appendChild(checkbox)
+
+
+  return toDoShell;
 
 }
 
@@ -60,6 +104,8 @@ function buildToDo(todo, index) {
 
 function buildToDos(toDos) {
   // Tu código acá:
+  let newArr = toDos.map((todo, index) => buildToDo(todo, index));
+  return newArr
 
 }
 
@@ -75,6 +121,13 @@ function buildToDos(toDos) {
 
 function displayToDos() {
   // Tu código acá:
+  let toDoContainer = document.querySelector('#toDoContainer');
+  toDoContainer.innerHTML = '';
+  let result = buildToDos(toDoItems);
+  for(let i = 0; i < result.length; i++){
+    toDoContainer.appendChild(result[i]);
+  }
+
 
 }
 
@@ -90,6 +143,11 @@ function displayToDos() {
 
 function addToDo() {
   // Tu código acá:
+  let input = document.querySelector('#toDoInput');
+  let toDo = new ToDo(input.value)
+  toDoItems.push(toDo);
+  input.value = '';
+  displayToDos()
 
 }
 
@@ -99,6 +157,8 @@ function addToDo() {
 //   2) Agregarle un 'click' event listener, pasándole la función 'addToDo' como callback
 
 // Tu código acá:
+let button = document.querySelector('#addButton');
+button.addEventListener('click' , addToDo);
 
 
 // La función completeToDo se va a ejecutar cuando queramos completar un todo
@@ -115,8 +175,12 @@ function addToDo() {
 
 function completeToDo(event) {
   // DESCOMENTAR LA SIGUIENTE LINEA
-  // const index = event.target.id;
+  const index = event.target.id;
   // Tu código acá:
+  toDoItems[index].completeToDo();
+  displayToDos();
+
+  
 
 }
 
@@ -137,6 +201,7 @@ function completeToDo(event) {
 
 
 // Acá debes insertar la llamada a 'displayToDos'
+displayToDos()
 
 
 // ---------------------------- NO CAMBIES NADA DE ACÁ PARA ABAJO ----------------------------- //
