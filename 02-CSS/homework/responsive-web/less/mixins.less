@@ -1,1 +1,27 @@
 // Mixins acá
+
+.img-mix(@border-img, @margin-img){
+    border-radius: @border-img;
+    margin-top: @margin-img;
+}
+
+.title-mix() {
+    font-size:3.2em;
+    padding: 0.5em;
+    color: @header-font-color;
+}
+
+.btn-mix(@bg-color, @text-color){
+    background-color: @bg-color;
+    color: @text-color;
+    //width: fit-content;
+    padding: 0.8em;
+    border-radius: 0.5em;
+    transition: background-color 0.5s;
+    &:hover {
+        background-color: @text-color;
+        //font-size: 1.2em;
+        color:@bg-color ;
+        border: @bg-color solid 1px;
+    }
+}
