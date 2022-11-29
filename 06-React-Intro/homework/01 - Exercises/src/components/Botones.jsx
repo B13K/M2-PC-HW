@@ -2,7 +2,7 @@ import React from 'react';
 
 class Botones extends React.Component{
     render(){
-        let {alerts} = this.props
+        const {alerts} = this.props
         return (
             <div>
                 <button onClick={() => alert(alerts.m1)}>Módulo 1</button>
