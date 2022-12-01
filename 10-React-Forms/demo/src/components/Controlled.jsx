@@ -12,8 +12,16 @@ export default function Form() {
     }
     setUsername(value);
   }
+
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log(username)
+    console.log(password)
+    console.log(error)
+  }
   return (
-      <form>
+      <form onSubmit={onSubmit}>
         <input className={error && 'danger'}
           name="username" value={username} placeholder="username" onChange={(e) => validateUser(e.target.value)}/>
         {!error ? null : <span>{error}</span>}

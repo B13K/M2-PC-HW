@@ -13,7 +13,7 @@ function DinamicInputs() {
   });
 
   const agregaFamiliar = () => {
-      setFamiliar([...familiar, { ...modeloFamiliar }]);
+      setFamiliar([...familiar, { ...persona }]);
   };
 
   const handlePersonaChange = (e) => setPersona({
