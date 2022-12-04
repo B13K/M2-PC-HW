@@ -20,5 +20,8 @@ ReactDOM.render(
   <Provider store={store}>
     <Counter />
   </Provider>,
+  // <div>
+  //   <p>Hola mundo</p>
+  // </div>,
   document.getElementById('root')
 );
