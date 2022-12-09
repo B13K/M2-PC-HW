@@ -1,6 +1,6 @@
 import React from 'react';
-import Products from './components/Products/Products';
-import Form from './components/Form/Form';
+import Products from './components/Products/Products.jsx';
+import Form from './components/Form/Form.jsx';
 import './home.css';
 
 export default function Home() {
